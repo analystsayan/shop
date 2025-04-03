@@ -1,7 +1,5 @@
 import products from './products.js'; // Importing product data
 
-// console.log(products); // Log the products to check if they are imported correctly
-
 // Get reference to the main container
 const shopContainer = document.getElementById("shop-container");
 
