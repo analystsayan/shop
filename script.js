@@ -1,83 +1,143 @@
-// Get cart from localStorage or create empty array
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+import products from './products.js'; // Importing product data
 
-// Function to update cart count
-function updateCartCount() {
-    document.getElementById("cart-count").innerText = cart.length;
-}
+// console.log(products); // Log the products to check if they are imported correctly
 
-// Function to update buttons (Add to Cart → Remove)
-function updateButtons() {
-    document.querySelectorAll(".add-to-cart").forEach(button => {
-        const name = button.dataset.name;
-        if (cart.some(item => item.name === name)) {
-            button.innerText = "Remove";
-            button.classList.add("remove-from-cart");
-        } else {
-            button.innerText = "Add to Cart";
-            button.classList.remove("remove-from-cart");
+// Get reference to the main container
+const shopContainer = document.getElementById("shop-container");
+
+// Function to generate product cards dynamically
+function generateShop() {
+    let categories = {};
+
+    // Categorizing products
+    products.forEach(product => {
+        if (!categories[product.category]) {
+            categories[product.category] = [];
         }
+        categories[product.category].push(product);
     });
-}
 
-// Function to display cart items in cart page
-function displayCartItems() {
-    const cartItemsContainer = document.getElementById("cart-items");
-    if (cartItemsContainer) {
-        cartItemsContainer.innerHTML = cart.length
-            ? cart.map(item => `<div class="cart-item"><p>${item.name} - $${item.price}</p><button class="remove-item" data-name="${item.name}">Remove</button></div>`).join("")
-            : "<p>Your cart is empty</p>";
+    // Generating category sections
+    Object.keys(categories).forEach(categoryName => {
+        const categorySection = document.createElement("section");
+        categorySection.classList.add("category");
 
-        // Add event listeners to "Remove" buttons in the cart page
-        document.querySelectorAll(".remove-item").forEach(button => {
-            button.addEventListener("click", removeFromCart);
+        categorySection.innerHTML = `<h2>${categoryName}</h2><div class="products"></div>`;
+        shopContainer.appendChild(categorySection);
+
+        const productsContainer = categorySection.querySelector(".products");
+
+        // Generating product cards
+        categories[categoryName].forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+
+            // Image Slider HTML
+            const imagesHtml = product.images.map(img => `<img src="${img}" alt="${product.name}">`).join("");
+
+            productCard.innerHTML = `
+                <div class="image-slider">
+                    <div class="slider-container">${imagesHtml}</div>
+                    <button class="prev">&#10094;</button>
+                    <button class="next">&#10095;</button>
+                    <div class="dots"></div>
+                </div>
+
+                <div class="product-details">
+                    <h3>${product.name}</h3>
+                    <p>₹${product.price}</p>
+                    <div class="btns">
+                        <a href="${product.buyLink}" class="buy-now">Buy Now</a>
+                    </div>
+                </div>
+            `;
+
+            productsContainer.appendChild(productCard);
         });
-    }
+    });
+
+    // Call functions **AFTER** products are generated
+    setupSliders();
+    setupCartButtons();
 }
 
-// Function to add/remove item from cart
-function toggleCart(event) {
-    const name = event.target.dataset.name;
-    const price = event.target.dataset.price;
-    const index = cart.findIndex(item => item.name === name);
+generateShop();
 
-    if (index === -1) {
-        // Add item to cart
-        cart.push({ name, price });
-    } else {
-        // Remove item from cart
-        cart.splice(index, 1);
-    }
+// Function to setup image sliders
+function setupSliders() {
+    document.querySelectorAll('.image-slider').forEach(slider => {
+        let currentIndex = 0;
+        const images = slider.querySelectorAll('.slider-container img');
+        const sliderContainer = slider.querySelector('.slider-container');
+        const dotsContainer = slider.querySelector('.dots');
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    updateButtons();
-    displayCartItems();
-}
+        // Set CSS dynamically for proper sliding effect
+        sliderContainer.style.display = "flex";
+        sliderContainer.style.transition = "transform 0.3s ease-in-out";
+        sliderContainer.style.width = `${images.length * 100}%`;
+        
+        images.forEach(img => img.style.width = `${100 / images.length}%`);
 
-// Function to remove item from cart (for cart page)
-function removeFromCart(event) {
-    const name = event.target.dataset.name;
-    cart = cart.filter(item => item.name !== name);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    updateButtons();
-    displayCartItems();
-}
+        // Create dots dynamically
+        images.forEach((_, index) => {
+            const dot = document.createElement('span');
+            if (index === 0) dot.classList.add('active');
+            dotsContainer.appendChild(dot);
+        });
 
-// Add event listeners to product page buttons
-document.querySelectorAll(".add-to-cart").forEach(button => {
-    button.addEventListener("click", toggleCart);
-});
+        const dots = dotsContainer.querySelectorAll('span');
 
-// Update UI on page load
-updateCartCount();
-updateButtons();
-displayCartItems();
+        function updateSlider() {
+            sliderContainer.style.transform = `translateX(-${currentIndex * (100 / images.length)}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentIndex].classList.add('active');
+        }
 
-// Cart Page Checkout Button
-if (document.getElementById("checkout")) {
-    document.getElementById("checkout").addEventListener("click", () => {
-        window.location.href = "https://wa.me/yourwplink";
+        // Next and Previous Button Functions
+        slider.querySelector('.next').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateSlider();
+        });
+
+        slider.querySelector('.prev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateSlider();
+        });
+
+        // Click on dots to navigate
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlider();
+            });
+        });
+
+        // --- Add Swipe Functionality for Mobile ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        sliderContainer.addEventListener('touchstart', (event) => {
+            touchStartX = event.touches[0].clientX;
+        });
+
+        sliderContainer.addEventListener('touchmove', (event) => {
+            touchEndX = event.touches[0].clientX;
+        });
+
+        sliderContainer.addEventListener('touchend', () => {
+            let swipeDistance = touchStartX - touchEndX;
+
+            if (swipeDistance > 50) { 
+                // Swipe Left (Next)
+                currentIndex = (currentIndex + 1) % images.length;
+            } else if (swipeDistance < -50) { 
+                // Swipe Right (Previous)
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+            }
+
+            updateSlider();
+        });
+
+        updateSlider(); // Initialize slider position
     });
 }
