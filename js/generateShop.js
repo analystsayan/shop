@@ -1,36 +1,29 @@
-import products from './products.js'; // Importing product data
+function generateShop(products, containerId) {
+    const shopContainer = document.getElementById(containerId);
+    if (!shopContainer) {
+        console.error(`Container with id '${containerId}' not found.`);
+        return;
+    }
 
-// Get reference to the main container
-const shopContainer = document.getElementById("shop-container");
-
-// Function to generate product cards dynamically
-function generateShop() {
     let categories = {};
 
-    // Categorizing products
     products.forEach(product => {
-        if (!categories[product.category]) {
-            categories[product.category] = [];
-        }
+        if (!categories[product.category]) categories[product.category] = [];
         categories[product.category].push(product);
     });
 
-    // Generating category sections
     Object.keys(categories).forEach(categoryName => {
         const categorySection = document.createElement("section");
         categorySection.classList.add("category");
-
         categorySection.innerHTML = `<h2>${categoryName}</h2><div class="products"></div>`;
         shopContainer.appendChild(categorySection);
 
         const productsContainer = categorySection.querySelector(".products");
 
-        // Generating product cards
         categories[categoryName].forEach(product => {
             const productCard = document.createElement("div");
             productCard.classList.add("product-card");
 
-            // Image Slider HTML
             const imagesHtml = product.images.map(img => `<img src="${img}" alt="${product.name}">`).join("");
 
             productCard.innerHTML = `
@@ -40,7 +33,6 @@ function generateShop() {
                     <button class="next">&#10095;</button>
                     <div class="dots"></div>
                 </div>
-
                 <div class="product-details">
                     <h3>${product.name}</h3>
                     <p>₹${product.price}</p>
@@ -53,13 +45,9 @@ function generateShop() {
             productsContainer.appendChild(productCard);
         });
     });
-
-    // Call functions **AFTER** products are generated
-    setupSliders();
-    setupCartButtons();
+    setupSliders(); // Call after DOM is ready
 }
 
-generateShop();
 
 // Function to setup image sliders
 function setupSliders() {

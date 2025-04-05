@@ -1,28 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sayan Mondal Shop | Analyst Sayan</title>
 
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="./src/favicon/favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <nav>
         <header>
-            <a href="https://www.sayanmondal.in">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg>
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#e8eaed">
+                    <path
+                        d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+                </svg>
             </a>
             <h5>shop.sayanmondal.in</h5>
             <a href="https://www.sayanmondal.in">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#e8eaed">
+                    <path
+                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                </svg>
             </a>
         </header>
     </nav>
 
-    <main id="shop-container"></main>
+    <div class="link">
+        <a href="/" class="active">Home</a>
+        <a href="pages/mobiles.html">Mobiles</a>
+        <a href="pages/laptops.html">Laptops</a>
+        <a href="pages/accessories.html">accessories</a>
+        <a href="pages/refrigerators.html">Refrigerators</a>
+    </div>
+
+    <main>
+        <section class="hero">
+            <h2>Save Smart.<br>Shop Smarter.</h2>
+            <p>Get curated products with unbeatable deals from Flipkart, Amazon, and more. Save money, get value, and make
+                better buying decisions!</p>
+            <a href="pages/mobiles.html" class="cta-btn">Explore Deals on Mobiles</a>
+        </section>
+    
+        <section class="features">
+            <h2>What We Do</h2>
+            <div class="feature-cards">
+                <div class="card">
+                    <h3>Handpicked Products</h3>
+                    <p>We select only the most trusted, value-for-money items in every category.</p>
+                </div>
+                <div class="card">
+                    <h3>Best Prices</h3>
+                    <p>We track price drops and show only the most affordable options for your needs.</p>
+                </div>
+                <div class="card">
+                    <h3>Zero Confusion</h3>
+                    <p>Stop wasting time comparing 100s of options — we give you the best directly.</p>
+                </div>
+            </div>
+        </section>
+    
+        <section class="newsletter">
+            <h2>Subscribe for Updates</h2>
+            <p>Stay updated with new deals and smart shopping tips from Sayan.</p>
+            <form>
+                <input type="email" placeholder="Enter your email" required />
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+    </main>
 
     <footer>
         Created with ♡ by <a href="https://www.sayanmondal.in">Analyst Sayan</a>
@@ -32,4 +84,5 @@
     <script type="module" src="cart.js"></script>
 
 </body>
+
 </html>
