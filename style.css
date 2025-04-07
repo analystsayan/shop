@@ -171,7 +171,7 @@ main {
 .features h2 {
     margin-bottom: 2rem;
     font-size: 1.8rem;
-    color: var(--accent-color);
+    color: var(--font-color);
 }
 
 .feature-cards {

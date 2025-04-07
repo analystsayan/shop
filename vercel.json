@@ -1,0 +1,21 @@
+{
+    "rewrites": [
+        {
+            "source": "/accessories",
+            "destination": "/accessories.html"
+        },
+        {
+            "source": "/laptops",
+            "destination": "/laptops.html"
+        },
+        {
+            "source": "/mobiles",
+            "destination": "/mobiles.html"
+        },
+        {
+            "source": "/refrigerators",
+            "destination": "/refrigerators.html"
+        }
+    ],
+    "cleanUrls": true
+}

@@ -28,13 +28,6 @@ const products = [
         images: ["/product-imgs/phone-2a.png", "/product-imgs/phone-2a-front.png", "/product-imgs/phone-2a-blue.png", "/product-imgs/phone-2a-black.png"]
     },
     {
-        category: "Best mobiles around ₹20000",
-        name: "Nothing Phone (2a) 5G (8GB/ 128GB)",
-        price: 21999,
-        buyLink: "https://fktr.in/zbVNN4F",
-        images: ["/product-imgs/phone-2a.png", "/product-imgs/phone-2a-front.png", "/product-imgs/phone-2a-blue.png", "/product-imgs/phone-2a-black.png"]
-    },
-    {
         category: "Best mobiles around ₹25000",
         name: "Nothing Phone (3a) 5G (8GB/ 128GB)",
         price: 24999,
