@@ -203,52 +203,6 @@ main {
     color: #ffffffa1;
 }
 
-/* Newsletter */
-.newsletter {
-    background: var(--secondary-color);
-    color: white;
-    padding: 3rem 1rem;
-    text-align: center;
-}
-
-.newsletter h2 {
-    margin-bottom: 1rem;
-}
-
-.newsletter p {
-    margin-bottom: 1.5rem;
-    color: #ccc;
-}
-
-.newsletter form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-.newsletter input[type="email"] {
-    padding: 0.6rem 1rem;
-    border: none;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 400px;
-}
-
-.newsletter button {
-    padding: 0.6rem 1.5rem;
-    background: var(--accent-color);
-    border: none;
-    color: var(--font-color);
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.newsletter button:hover {
-    background: var(--accent-color);
-}
-
 .categories {
     display: flex;
     flex-wrap: wrap;
@@ -403,8 +357,41 @@ main {
     background: var(--accent-color-2);
 }
 
+.whatsapp-group {
+    background: var(--primary-color);
+    padding: 2em 1em;
+    text-align: center;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.whatsapp-group a {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    background-color: #23df75;
+    border-radius: 40px;
+    padding: .5em 1em;
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.whatsapp-group a svg {
+    width: 28px;
+    fill: var(--primary-color);
+}
+
 footer {
     padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
 }
 
 footer a {
